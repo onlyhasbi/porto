@@ -1,11 +1,13 @@
-import React from 'react';
+'use client';
 
-type Props = { key: string; content: React.ReactNode };
+import React, { useId } from 'react';
 
-function TabContentItem({ key, content }: Props) {
+type Props = { content: React.ReactNode };
+
+function TabContentItem({ content }: Props) {
+  const key = useId();
   return (
     <div
-      key={key}
       id={`tabs-with-underline-${key}`}
       role="tabpanel"
       aria-labelledby={`tabs-with-underline-item-${key}`}
