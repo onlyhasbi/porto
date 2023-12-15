@@ -11,7 +11,7 @@ function TabContentItem({ content }: Props) {
       id={`tabs-with-underline-${key}`}
       role="tabpanel"
       aria-labelledby={`tabs-with-underline-item-${key}`}
-      className="px-5"
+      className="mt-8"
     >
       {content}
     </div>
