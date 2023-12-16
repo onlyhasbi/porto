@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import ProfileForm from './ProfileForm';
 import Card from '@/app/_components/ui/Card';
 import PortfolioForm from './PortfolioForm';
@@ -12,6 +12,8 @@ import Link from 'next/link';
 type Props = {};
 
 function CardInput({}: Props) {
+  const ref = useRef<HTMLInputElement>(null);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-2">
@@ -22,12 +24,19 @@ function CardInput({}: Props) {
           className="border-none focus:outline-none focus:ring-0 text-xl font-semibold placeholder:text-slate-300"
           type="text"
           placeholder="Portfolio name"
+          defaultValue="Untitled"
+          ref={ref}
+          onBlur={() => {
+            if (!ref.current!.value) {
+              ref.current!.value = 'Untitled';
+            }
+          }}
         />
       </div>
-      <Card>
+      <div>
         <h2 className="text-xl font-semibold mb-2">Personal Details</h2>
         <ProfileForm />
-      </Card>
+      </div>
       <div className="mb-2">
         <h2 className="text-xl font-semibold">Employment History</h2>
         <p className="text-xs font-light mt-1">
@@ -40,11 +49,23 @@ function CardInput({}: Props) {
           <Collapse title="Frontend at Octopus">
             <PortfolioForm />
           </Collapse>
-          <button onClick={()=>{console.log('delete portfolio click')}} className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4">
+          <button
+            onClick={() => {
+              console.log('delete portfolio click');
+            }}
+            className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4"
+          >
             <Trash size={18} className="hover:text-red-600" />
           </button>
         </div>
-        <Button onClick={()=>{console.log('add portfolio click')}} variant="solid" className="flex gap-2">
+
+        <Button
+          onClick={() => {
+            console.log('add portfolio click');
+          }}
+          variant="solid"
+          className="flex gap-2"
+        >
           <Plus size={18} /> Add one more portfolio
         </Button>
       </div>

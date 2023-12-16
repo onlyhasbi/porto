@@ -1,6 +1,6 @@
 import React from 'react';
-import CardInput from '../_features/new/CardInput';
-import Preview from '../_features/new/Preview';
+import CardInput from '../../../_features/new/CardInput';
+import Preview from '../../../_features/new/Preview';
 
 function NewPortFolio() {
   return (
