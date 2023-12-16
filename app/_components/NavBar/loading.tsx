@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from '../Skeleton/page';
+import { Skeleton } from '../ui/Skeleton/page';
 
 function NavBarLoading() {
   return (

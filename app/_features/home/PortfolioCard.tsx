@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../../_components/Card/page';
+import Card from '../../_components/ui/Card';
 import Link from 'next/link';
 
 function PortfolioCard() {

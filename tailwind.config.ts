@@ -8,8 +8,17 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    colors: {
+      ...colors,
+      ...{
+        primary: {
+          DEFAULT: '#2563eb',
+        },
+      },
+    },
+    extend: {
+    },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 export default config;
