@@ -1,18 +1,37 @@
 'use client';
 
-import React, { useRef } from 'react';
-import ProfileForm from './ProfileForm';
-import Card from '@/app/_components/ui/Card';
-import PortfolioForm from './PortfolioForm';
 import Button from '@/app/_components/ui/Button';
 import Collapse from '@/app/_components/ui/Collapse';
+import { usePortfolioStore } from '@/store/portfolio';
 import { ChevronLeft, Plus, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import PortfolioForm from './PortfolioForm';
+import ProfileForm from './ProfileForm';
+import { useDebounce } from '@uidotdev/usehooks';
 
-type Props = {};
+function CardInput({ id }: { id: string }) {
+  const { register, setValue, watch } = useForm({
+    defaultValues: {
+      portfolio_name: 'Untitled',
+    },
+  });
 
-function CardInput({}: Props) {
-  const ref = useRef<HTMLInputElement>(null);
+  const { portfolio, changePortfolioName } = usePortfolioStore();
+  const debounceName = useDebounce(watch('portfolio_name'), 300);
+
+  useEffect(() => {
+    const loadPortfolio = portfolio.filter((item) => item.id == id);
+    if (loadPortfolio.length) {
+      setValue('portfolio_name', loadPortfolio[0].portfolio_name!);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (debounceName)
+      changePortfolioName({ id_portfolio: id, portfolio_name: debounceName });
+  }, [debounceName]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -24,13 +43,11 @@ function CardInput({}: Props) {
           className="border-none focus:outline-none focus:ring-0 text-xl font-semibold placeholder:text-slate-300"
           type="text"
           placeholder="Portfolio name"
-          defaultValue="Untitled"
-          ref={ref}
-          onBlur={() => {
-            if (!ref.current!.value) {
-              ref.current!.value = 'Untitled';
-            }
-          }}
+          {...register('portfolio_name', {
+            onBlur: (e) => {
+              if (!e.target.value) setValue('portfolio_name', 'Untitled');
+            },
+          })}
         />
       </div>
       <div>

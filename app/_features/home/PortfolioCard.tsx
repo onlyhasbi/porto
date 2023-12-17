@@ -1,35 +1,45 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../../_components/ui/Card';
 import { v4 as uuidv4 } from 'uuid';
 import { usePortfolioStore } from '@/store/portfolio';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 function PortfolioCard() {
-  const { portfolio, addPortfolio } = usePortfolioStore();
+  const [isAdd, setIsAdd] = useState(false);
+  const { portfolio, addPortfolio, deletePortfolio } = usePortfolioStore();
   const router = useRouter();
 
   const handleAddPortfolio = () => {
     const id = uuidv4();
+    setIsAdd(true);
     addPortfolio(id);
     router.push(`/portfolio/${id}/edit`);
   };
+
+  if (isAdd) return <>Loading...</>;
 
   return (
     <>
       <div className="flex flex-col gap-3">
         {portfolio?.map((item) => (
-          <Link
-            key={item.id}
-            href={`/portfolio/${item.id}/edit`}
-            className="cursor-pointer"
-          >
-            {item.id}
-          </Link>
+          <div key={item.id} className="flex items-center gap-3">
+            <Link
+              href={`/portfolio/${item.id}/edit`}
+              className="cursor-pointer"
+            >
+              {item.portfolio_name}
+            </Link>
+            <button onClick={() => deletePortfolio(item.id)}>Delete</button>
+          </div>
         ))}
       </div>
-      <div onClick={handleAddPortfolio} className="flex gap-7 items-start">
+      <div
+        onClick={handleAddPortfolio}
+        className="flex gap-7 items-start"
+        role="button"
+      >
         <Card className="group/add max-w-15 w-[13rem] h-[18rem] flex justify-center items-center">
           <Circle />
         </Card>
