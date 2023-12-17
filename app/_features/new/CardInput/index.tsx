@@ -77,10 +77,11 @@ function CardInput({ id }: { id: string }) {
         </div>
 
         <Button
+          type="button"
           onClick={() => {
             console.log('add portfolio click');
           }}
-          variant="solid"
+          variant="ghost"
           className="flex gap-2"
         >
           <Plus size={18} /> Add one more portfolio
