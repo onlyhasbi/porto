@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { usePortfolioStore } from '@/store/portfolio';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Button from '@/app/_components/ui/Button';
+import { Trash } from 'lucide-react';
 function PortfolioCard() {
   const [isAdd, setIsAdd] = useState(false);
   const { portfolio, addPortfolio, deletePortfolio } = usePortfolioStore();
@@ -21,39 +23,47 @@ function PortfolioCard() {
   if (isAdd) return <>Loading...</>;
 
   return (
-    <>
-      <div className="flex flex-col gap-3">
-        {portfolio?.map((item) => (
-          <div key={item.id} className="flex items-center gap-3">
+    <div className="flex gap-8 min-h-screen">
+      {portfolio?.map((item) => (
+        <div
+          key={item.id}
+          className="flex flex-col items-start gap-3 max-w-[28rem]"
+        >
+          <Link href={`/portfolio/${item.id}/edit`} className="cursor-pointer">
+            <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center text-center">
+              <h3 className="text-lg text-slate-500">Preview Portfolio</h3>
+              <p className="text-sm text-slate-400">shown as image</p>
+            </Card>
+          </Link>
+          <div className="flex justify-between items-center w-full">
             <Link
               href={`/portfolio/${item.id}/edit`}
-              className="cursor-pointer"
+              className="text-lg font-medium"
             >
               {item.portfolio_name}
             </Link>
-            <button onClick={() => deletePortfolio(item.id)}>Delete</button>
+            <Trash
+              onClick={() => deletePortfolio(item.id)}
+              size={18}
+              className="hover:text-red-600 mx-2 cursor-pointer"
+            />
           </div>
-        ))}
-      </div>
-      <button onClick={handleAddPortfolio} className="flex gap-7 items-start">
-        <Card className="group/add max-w-15 w-[13rem] h-[18rem] flex justify-center items-center">
+        </div>
+      ))}
+      <button
+        onClick={handleAddPortfolio}
+        className="flex flex-col justify-start items-center text-center gap-3  max-w-[28rem]"
+      >
+        <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center">
           <Circle />
         </Card>
-        <Description />
+        <h2 className="text-lg font-medium mb-1">
+          <span className="font-semibold">New</span> Portfolio
+        </h2>
       </button>
-    </>
+    </div>
   );
 }
-
-const Description = () => (
-  <div className="max-w-xs text-left mt-3">
-    <h2 className="text-xl font-medium mb-1 text-slate-500">New Portfolio</h2>
-    <p className="text-xs max-w-xl text-slate-400">
-      Create a tailored portfolio for each job application. Double your chances
-      of getting hired!
-    </p>
-  </div>
-);
 
 const Circle = () => (
   <div className="group-hover/add:bg-blue-500 bg-[#eff2f9] rounded-full w-20 h-20 flex items-center justify-center cursor-pointer">

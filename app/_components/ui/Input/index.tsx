@@ -8,6 +8,7 @@ type Props = {
   onBlur: (e: React.ChangeEvent) => void;
   name: string;
   error?: string;
+  placeholder?:string
 };
 
 const Input = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
@@ -28,6 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
         onChange={props.onChange}
         onBlur={props.onBlur}
         name={props.name}
+        placeholder={props.placeholder}
         className={clsx({
           'bg-slate-50 border text-slate-800 text-sm focus:border-transparent rounded-md focus:ring-blue-500 block w-full p-2.5 placeholder:text-slate-300':
             true,

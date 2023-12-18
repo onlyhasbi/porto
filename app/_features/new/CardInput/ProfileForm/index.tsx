@@ -9,7 +9,11 @@ import { PersonalDetails } from '@/store/type';
 import { useParams } from 'next/navigation';
 import { FieldValues, useForm, Controller } from 'react-hook-form';
 
-function ProfileForm() {
+function ProfileForm({
+  initialValues,
+}: {
+  initialValues: PersonalDetails | undefined;
+}) {
   const {
     register,
     watch,
@@ -17,11 +21,11 @@ function ProfileForm() {
     formState: { errors },
   } = useForm<PersonalDetails>({
     defaultValues: {
-      cover: '',
-      avatar: '',
-      name: '',
-      position: '',
-      description: '',
+      cover: initialValues?.cover || '',
+      avatar: initialValues?.avatar || '',
+      name: initialValues?.name || '',
+      position: initialValues?.position || '',
+      description: initialValues?.description || '',
     },
   });
 

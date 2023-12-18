@@ -51,7 +51,8 @@ function formatTitle(title: TitleProps) {
   if (title.job_title && title.company)
     return `${title.job_title} at ${title.company}`;
   if (title.job_title) return title.job_title;
-  return title.company;
+  if(title.company) return title.company;
+  return 'Untitled Portfolio'
 }
 
 export default Collapse;

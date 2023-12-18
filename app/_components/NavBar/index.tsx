@@ -9,13 +9,16 @@ function NavBar() {
         <Link href="/" className="font-semibold text-lg">
           Porto.io
         </Link>
-        <Image
-          className="inline-block h-[2.875rem] w-[2.875rem] relative object-fit rounded-full"
-          src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-          alt="Image Description"
-          height={100}
-          width={100}
-        />
+        <div className="flex gap-4 items-center">
+          <h3>Muhammad Hasbi</h3>
+          <Image
+            className="inline-block h-[2.875rem] w-[2.875rem] relative object-fit rounded-full"
+            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+            alt="Image Description"
+            height={100}
+            width={100}
+          />
+        </div>
       </div>
     </nav>
   );

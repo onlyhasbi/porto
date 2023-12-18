@@ -9,8 +9,9 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-function PortfolioForm({ id }: { id: string }) {
+function PortfolioForm({ initialValues }: { initialValues: Experience }) {
   const { editExperience } = usePortfolioStore();
+  const { id } = initialValues;
   const params = useParams();
 
   const {
@@ -19,12 +20,12 @@ function PortfolioForm({ id }: { id: string }) {
     formState: { errors },
   } = useForm<Experience>({
     defaultValues: {
-      job_title: '',
-      company: '',
-      start_date: '',
-      end_date: '',
-      city: '',
-      description: '',
+      job_title: initialValues.job_title || '',
+      company: initialValues.company || '',
+      start_date: initialValues.start_date || '',
+      end_date: initialValues.end_date || '',
+      city: initialValues.city || '',
+      description: initialValues.description || '',
     },
   });
 
@@ -52,12 +53,14 @@ function PortfolioForm({ id }: { id: string }) {
         <Input
           type="text"
           label="Start Date"
+          placeholder="MM / YYYY"
           {...register('start_date', { required: '*required' })}
           error={errors.start_date?.message}
         />
         <Input
           type="text"
           label="End Date"
+          placeholder="MM / YYYY"
           {...register('end_date', { required: '*required' })}
           error={errors.end_date?.message}
         />
@@ -80,7 +83,7 @@ function PortfolioForm({ id }: { id: string }) {
         variant="solid"
         className="grid col-span-2 w-auto px-3 ml-auto"
       >
-        Add Portfolio
+        Set Portfolio
       </Button>
     </form>
   );

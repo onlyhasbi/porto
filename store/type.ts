@@ -18,7 +18,6 @@ export type PersonalDetails = {
 
 type EditPersonalDetails = {
   id_portfolio: string;
-  id_experience:string;
   personal_details: PersonalDetails;
 };
 

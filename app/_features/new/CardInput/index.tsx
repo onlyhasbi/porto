@@ -54,8 +54,8 @@ function CardInput({ id }: { id: string }) {
         />
       </div>
       <div>
-        <h2 className="text-xl font-semibold mb-2">Personal Details</h2>
-        <ProfileForm />
+        <h2 className="text-xl font-semibold mb-3">Personal Details</h2>
+        <ProfileForm initialValues={currentPortfolio[0]?.personal_details} />
       </div>
       <div className="mb-2">
         <h2 className="text-xl font-semibold">Employment History</h2>
@@ -66,12 +66,12 @@ function CardInput({ id }: { id: string }) {
       </div>
       <div>
         {Boolean(currentPortfolio.length) &&
-          currentPortfolio[0].experience.map((portfolio) => {
+          currentPortfolio[0]?.experience?.map((portfolio) => {
             const { id: id_experience, job_title, company } = portfolio;
             return (
               <div key={id_experience} className="group relative">
                 <Collapse title={{ job_title, company }}>
-                  <PortfolioForm id={id_experience}/>
+                  <PortfolioForm initialValues={portfolio} />
                 </Collapse>
                 <button
                   onClick={() =>
@@ -84,16 +84,23 @@ function CardInput({ id }: { id: string }) {
               </div>
             );
           })}
-        <Button
-          type="button"
-          onClick={() =>
-            addExperience({ id_portfolio: id, id_experience: portfolioId })
-          }
-          variant="ghost"
-          className="flex gap-2"
-        >
-          <Plus size={18} /> Add one more portfolio
-        </Button>
+        {currentPortfolio[0]?.experience?.length < 10 ? (
+          <Button
+            type="button"
+            onClick={() =>
+              addExperience({ id_portfolio: id, id_experience: portfolioId })
+            }
+            variant="ghost"
+            className="flex gap-2"
+          >
+            <Plus size={18} /> Add one more portfolio
+          </Button>
+        ) : (
+          <div>
+            <p className="font-semibold text-red-600">Limited Portfolio</p>
+            <p className="text-sm text-slate-500">Upgrade to Premium</p>
+          </div>
+        )}
       </div>
     </div>
   );
