@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 
 type Props = {
@@ -23,11 +24,18 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
         onChange={props.onChange}
         onBlur={props.onBlur}
         name={props.name}
-        className="block p-2.5 w-full text-sm text-slate-800 bg-slate-50 focus:border-transparent rounded-md border border-slate-200 focus:ring-blue-500 focus:border-blue-600 placeholder:text-slate-300"
+        className={clsx({
+          'bg-slate-50 border text-slate-800 text-sm focus:border-transparent rounded-md focus:ring-blue-500 block w-full p-2.5 placeholder:text-slate-300':
+            true,
+          'border-slate-200': !props.error,
+          'border-red-600': props.error,
+        })}
         id={id}
         rows={3}
       ></textarea>
-      {props.error && <p className="block ml-auto text-sm text-red-600">{props.error}</p>}
+      {props.error && (
+        <p className="block ml-auto text-sm text-red-600">{props.error}</p>
+      )}
     </div>
   );
 });

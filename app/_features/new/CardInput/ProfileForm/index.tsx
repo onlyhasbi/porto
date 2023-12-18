@@ -7,11 +7,12 @@ import Upload from '@/app/_components/ui/Upload';
 import { usePortfolioStore } from '@/store/portfolio';
 import { PersonalDetails } from '@/store/type';
 import { useParams } from 'next/navigation';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm, Controller } from 'react-hook-form';
 
 function ProfileForm() {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { errors },
   } = useForm<PersonalDetails>({
@@ -23,6 +24,7 @@ function ProfileForm() {
       description: '',
     },
   });
+
   const { editPersonalDetails } = usePortfolioStore();
   const params = useParams();
 
@@ -52,38 +54,50 @@ function ProfileForm() {
       <Upload
         title="Cover"
         sizeInfo="800x400"
-        {...register('cover', { required: 'required' })}
+        {...register('cover', {
+          required: '*required',
+        })}
+        path={
+          Boolean(watch('cover'))
+            ? (watch('cover') as unknown as FileList)[0]?.name
+            : ''
+        }
         error={errors.cover?.message}
       />
       <Upload
         title="Avatar"
         sizeInfo="500x500"
-        {...register('avatar', { required: 'required' })}
+        {...register('avatar', { required: '*required' })}
+        path={
+          Boolean(watch('avatar'))
+            ? (watch('avatar') as unknown as FileList)[0]?.name
+            : ''
+        }
         error={errors.avatar?.message}
       />
       <Input
         type="text"
         label="Name"
-        {...register('name', { required: 'required' })}
+        {...register('name', { required: '*required' })}
         error={errors.name?.message}
       />
       <Input
         type="text"
         label="Position"
-        {...register('position', { required: 'required' })}
+        {...register('position', { required: '*required' })}
         error={errors.position?.message}
       />
       <TextArea
         label="Description"
-        {...register('description', { required: 'required' })}
+        {...register('description', { required: '*required' })}
         error={errors.description?.message}
       />
       <Button
         type="submit"
         variant="solid"
-        className="flex-none flex-grow-0 w-24 ml-auto"
+        className="flex-none flex-grow-0 w-auto px-3 ml-auto"
       >
-        Save
+        Set Personal Details
       </Button>
     </form>
   );
