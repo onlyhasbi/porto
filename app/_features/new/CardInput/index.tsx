@@ -71,7 +71,7 @@ function CardInput({ id }: { id: string }) {
             return (
               <div key={id_experience} className="group relative">
                 <Collapse title={{ job_title, company }}>
-                  <PortfolioForm />
+                  <PortfolioForm id={id_experience}/>
                 </Collapse>
                 <button
                   onClick={() =>

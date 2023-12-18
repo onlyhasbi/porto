@@ -3,11 +3,16 @@
 import Button from '@/app/_components/ui/Button';
 import Input from '@/app/_components/ui/Input';
 import TextArea from '@/app/_components/ui/TextArea';
+import { usePortfolioStore } from '@/store/portfolio';
 import { Experience } from '@/store/type';
+import { useParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-function PortfolioForm({ id }: { id?: string }) {
+function PortfolioForm({ id }: { id: string }) {
+  const { editExperience } = usePortfolioStore();
+  const params = useParams();
+
   const {
     register,
     handleSubmit,
@@ -24,7 +29,9 @@ function PortfolioForm({ id }: { id?: string }) {
   });
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
+    const id_portfolio = params.id as string;
+    const id_experience = id;
+    editExperience({ id_portfolio, id_experience, payload: values });
   });
 
   return (

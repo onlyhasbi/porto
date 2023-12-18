@@ -18,6 +18,7 @@ export type PersonalDetails = {
 
 type EditPersonalDetails = {
   id_portfolio: string;
+  id_experience:string;
   personal_details: PersonalDetails;
 };
 
@@ -49,5 +50,5 @@ export type PortfolioStore = {
   changePortfolioName: (payload: ChangePortfolioName) => void;
   addExperience: (payoad: PayloadExperience) => void;
   deleteExperience: (payload: PayloadExperience) => void;
-  editExperience?: (payload: EditExperience) => void;
+  editExperience: (payload: EditExperience) => void;
 };

@@ -52,7 +52,21 @@ export const usePortfolioStore = create<PortfolioStore>((set) => ({
       }),
     }));
   },
-  editExperience: ({ id_portfolio, id_experience, payload }) => {},
+  editExperience: ({ id_portfolio, id_experience, payload }) => {
+    set((store) => ({
+      portfolio: store.portfolio.map((item) => {
+        if (item.id === id_portfolio) {
+          return {
+            ...item,
+            experience: item.experience.map((ex) =>
+              ex.id == id_experience ? { ...ex, ...payload } : ex
+            ),
+          };
+        }
+        return item;
+      }),
+    }));
+  },
   deleteExperience: ({ id_portfolio, id_experience }) => {
     set((store) => ({
       portfolio: store.portfolio.map((item) => {
