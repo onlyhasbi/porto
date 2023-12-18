@@ -8,7 +8,7 @@ import Upload from '@/app/_components/ui/Upload';
 import { usePortfolioStore } from '@/store/portfolio';
 import { PersonalDetails } from '@/store/type';
 import { useParams } from 'next/navigation';
-import { FieldValues, useForm, Controller } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 function ProfileForm({
   initialValues,

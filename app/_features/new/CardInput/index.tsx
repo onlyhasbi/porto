@@ -1,17 +1,17 @@
 'use client';
 
+import HydrationZustand from '@/app/_components/Hydration';
 import Button from '@/app/_components/ui/Button';
 import Collapse from '@/app/_components/ui/Collapse';
 import { usePortfolioStore } from '@/store/portfolio';
+import { useDebounce } from '@uidotdev/usehooks';
 import { ChevronLeft, Plus, Trash } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 import PortfolioForm from './PortfolioForm';
 import ProfileForm from './ProfileForm';
-import { useDebounce } from '@uidotdev/usehooks';
-import { v4 as uuidv4 } from 'uuid';
-import HydrationZustand from '@/app/_components/Hydration';
 
 function CardInput({ id }: { id: string }) {
   const { register, setValue, watch } = useForm({

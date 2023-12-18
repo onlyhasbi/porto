@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import Card from '../../_components/ui/Card';
-import { v4 as uuidv4 } from 'uuid';
-import { usePortfolioStore } from '@/store/portfolio';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Button from '@/app/_components/ui/Button';
-import { Trash } from 'lucide-react';
 import HydrationZustand from '@/app/_components/Hydration';
+import { usePortfolioStore } from '@/store/portfolio';
+import { Trash } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Card from '../../_components/ui/Card';
 function PortfolioCard() {
   const [isAdd, setIsAdd] = useState(false);
   const { portfolio, addPortfolio, deletePortfolio } = usePortfolioStore();

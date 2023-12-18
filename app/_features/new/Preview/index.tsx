@@ -1,11 +1,9 @@
 'use client';
 
 import HydrationZustand from '@/app/_components/Hydration';
-import Card from '@/app/_components/ui/Card';
 import { usePortfolioStore } from '@/store/portfolio';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React from 'react';
 
 function Preview() {
   const params = useParams();
