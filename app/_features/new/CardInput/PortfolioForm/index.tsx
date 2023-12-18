@@ -1,5 +1,6 @@
 'use client';
 
+import HydrationZustand from '@/app/_components/Hydration';
 import Button from '@/app/_components/ui/Button';
 import Input from '@/app/_components/ui/Input';
 import TextArea from '@/app/_components/ui/TextArea';
@@ -36,56 +37,58 @@ function PortfolioForm({ initialValues }: { initialValues: Experience }) {
   });
 
   return (
-    <form onSubmit={onSubmit} className="grid grid-cols-2 gap-3 p-1">
-      <Input
-        type="text"
-        label="Job Title"
-        {...register('job_title', { required: '*required' })}
-        error={errors.job_title?.message}
-      />
-      <Input
-        type="text"
-        label="Company"
-        {...register('company', { required: '*required' })}
-        error={errors.company?.message}
-      />
-      <div className="flex gap-3">
+    <HydrationZustand>
+      <form onSubmit={onSubmit} className="grid grid-cols-2 gap-3 p-1">
         <Input
           type="text"
-          label="Start Date"
-          placeholder="MM / YYYY"
-          {...register('start_date', { required: '*required' })}
-          error={errors.start_date?.message}
+          label="Job Title"
+          {...register('job_title', { required: '*required' })}
+          error={errors.job_title?.message}
         />
         <Input
           type="text"
-          label="End Date"
-          placeholder="MM / YYYY"
-          {...register('end_date', { required: '*required' })}
-          error={errors.end_date?.message}
+          label="Company"
+          {...register('company', { required: '*required' })}
+          error={errors.company?.message}
         />
-      </div>
-      <Input
-        type="text"
-        label="City"
-        {...register('city', { required: '*required' })}
-        error={errors.city?.message}
-      />
-      <div className="grid col-span-2">
-        <TextArea
-          label="Description"
-          {...register('description', { required: '*required' })}
-          error={errors.description?.message}
+        <div className="flex gap-3">
+          <Input
+            type="text"
+            label="Start Date"
+            placeholder="MM / YYYY"
+            {...register('start_date', { required: '*required' })}
+            error={errors.start_date?.message}
+          />
+          <Input
+            type="text"
+            label="End Date"
+            placeholder="MM / YYYY"
+            {...register('end_date', { required: '*required' })}
+            error={errors.end_date?.message}
+          />
+        </div>
+        <Input
+          type="text"
+          label="City"
+          {...register('city', { required: '*required' })}
+          error={errors.city?.message}
         />
-      </div>
-      <Button
-        type="submit"
-        variant="solid"
-        className="grid col-span-2 w-auto px-3 ml-auto"
-      >
-        Set Portfolio
-      </Button>
-    </form>
+        <div className="grid col-span-2">
+          <TextArea
+            label="Description"
+            {...register('description', { required: '*required' })}
+            error={errors.description?.message}
+          />
+        </div>
+        <Button
+          type="submit"
+          variant="solid"
+          className="grid col-span-2 w-auto px-3 ml-auto"
+        >
+          Set Portfolio
+        </Button>
+      </form>
+    </HydrationZustand>
   );
 }
 

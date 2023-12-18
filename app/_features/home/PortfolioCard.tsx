@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Button from '@/app/_components/ui/Button';
 import { Trash } from 'lucide-react';
+import HydrationZustand from '@/app/_components/Hydration';
 function PortfolioCard() {
   const [isAdd, setIsAdd] = useState(false);
   const { portfolio, addPortfolio, deletePortfolio } = usePortfolioStore();
@@ -23,45 +24,45 @@ function PortfolioCard() {
   if (isAdd) return <>Loading...</>;
 
   return (
-    <div className="flex gap-8 min-h-screen">
-      {portfolio?.map((item) => (
-        <div
-          key={item.id}
-          className="flex flex-col items-start gap-3 max-w-[28rem]"
-        >
-          <Link href={`/portfolio/${item.id}/edit`} className="cursor-pointer">
-            <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center text-center">
-              <h3 className="text-lg text-slate-500">Preview Portfolio</h3>
-              <p className="text-sm text-slate-400">shown as image</p>
-            </Card>
-          </Link>
-          <div className="flex justify-between items-center w-full">
-            <Link
-              href={`/portfolio/${item.id}/edit`}
-              className="text-lg font-medium"
-            >
-              {item.portfolio_name}
-            </Link>
-            <Trash
-              onClick={() => deletePortfolio(item.id)}
-              size={18}
-              className="hover:text-red-600 mx-2 cursor-pointer"
-            />
-          </div>
-        </div>
-      ))}
-      <button
-        onClick={handleAddPortfolio}
-        className="flex flex-col justify-start items-center text-center gap-3  max-w-[28rem]"
+    <HydrationZustand><div className="flex gap-8 min-h-screen">
+    {portfolio?.map((item) => (
+      <div
+        key={item.id}
+        className="flex flex-col items-start gap-3 max-w-[28rem]"
       >
-        <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center">
-          <Circle />
-        </Card>
-        <h2 className="text-lg font-medium mb-1">
-          <span className="font-semibold">New</span> Portfolio
-        </h2>
-      </button>
-    </div>
+        <Link href={`/portfolio/${item.id}/edit`} className="cursor-pointer">
+          <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center text-center">
+            <h3 className="text-lg text-slate-500">Preview Portfolio</h3>
+            <p className="text-sm text-slate-400">shown as image</p>
+          </Card>
+        </Link>
+        <div className="flex justify-between items-center w-full">
+          <Link
+            href={`/portfolio/${item.id}/edit`}
+            className="text-lg font-medium"
+          >
+            {item.portfolio_name}
+          </Link>
+          <Trash
+            onClick={() => deletePortfolio(item.id)}
+            size={18}
+            className="hover:text-red-600 mx-2 cursor-pointer"
+          />
+        </div>
+      </div>
+    ))}
+    <button
+      onClick={handleAddPortfolio}
+      className="flex flex-col justify-start items-center text-center gap-3  max-w-[28rem]"
+    >
+      <Card className="group/add w-[13rem] max-w-[15rem] h-[18rem] flex justify-center items-center">
+        <Circle />
+      </Card>
+      <h2 className="text-lg font-medium mb-1">
+        <span className="font-semibold">New</span> Portfolio
+      </h2>
+    </button>
+  </div></HydrationZustand>
   );
 }
 

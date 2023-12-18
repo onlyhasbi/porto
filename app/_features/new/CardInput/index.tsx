@@ -11,6 +11,7 @@ import PortfolioForm from './PortfolioForm';
 import ProfileForm from './ProfileForm';
 import { useDebounce } from '@uidotdev/usehooks';
 import { v4 as uuidv4 } from 'uuid';
+import HydrationZustand from '@/app/_components/Hydration';
 
 function CardInput({ id }: { id: string }) {
   const { register, setValue, watch } = useForm({
@@ -37,72 +38,72 @@ function CardInput({ id }: { id: string }) {
   }, [debounceName]);
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-2">
-        <Link href="/">
-          <ChevronLeft className="hover:text-blue-600 cursor-pointer" />
-        </Link>
-        <input
-          className="border-none focus:outline-none focus:ring-0 text-xl font-semibold placeholder:text-slate-300"
-          type="text"
-          placeholder="Portfolio name"
-          {...register('portfolio_name', {
-            onBlur: (e) => {
-              if (!e.target.value) setValue('portfolio_name', 'Untitled');
-            },
-          })}
-        />
-      </div>
-      <div>
-        <h2 className="text-xl font-semibold mb-3">Personal Details</h2>
-        <ProfileForm initialValues={currentPortfolio[0]?.personal_details} />
-      </div>
-      <div className="mb-2">
-        <h2 className="text-xl font-semibold">Employment History</h2>
-        <p className="text-xs font-light mt-1">
-          Show your relevant experience (last 10 years). Use bullet points to
-          note your achievements
-        </p>
-      </div>
-      <div>
-        {Boolean(currentPortfolio.length) &&
-          currentPortfolio[0]?.experience?.map((portfolio) => {
-            const { id: id_experience, job_title, company } = portfolio;
-            return (
-              <div key={id_experience} className="group relative">
-                <Collapse title={{ job_title, company }}>
-                  <PortfolioForm initialValues={portfolio} />
-                </Collapse>
-                <button
-                  onClick={() =>
-                    deleteExperience({ id_portfolio: id, id_experience })
-                  }
-                  className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4"
-                >
-                  <Trash size={18} className="hover:text-red-600" />
-                </button>
-              </div>
-            );
-          })}
-        {currentPortfolio[0]?.experience?.length < 10 ? (
-          <Button
-            type="button"
-            onClick={() =>
-              addExperience({ id_portfolio: id, id_experience: portfolioId })
-            }
-            variant="ghost"
-            className="flex gap-2"
-          >
-            <Plus size={18} /> Add one more portfolio
-          </Button>
-        ) : (
-          <div>
-            <p className="font-semibold text-red-600">Limited Portfolio</p>
-            <p className="text-sm text-slate-500">Upgrade to Premium</p>
-          </div>
-        )}
-      </div>
+    <HydrationZustand><div className="flex flex-col gap-6">
+    <div className="flex items-center gap-2">
+      <Link href="/">
+        <ChevronLeft className="hover:text-blue-600 cursor-pointer" />
+      </Link>
+      <input
+        className="border-none focus:outline-none focus:ring-0 text-xl font-semibold placeholder:text-slate-300"
+        type="text"
+        placeholder="Portfolio name"
+        {...register('portfolio_name', {
+          onBlur: (e) => {
+            if (!e.target.value) setValue('portfolio_name', 'Untitled');
+          },
+        })}
+      />
     </div>
+    <div>
+      <h2 className="text-xl font-semibold mb-3">Personal Details</h2>
+      <ProfileForm initialValues={currentPortfolio[0]?.personal_details} />
+    </div>
+    <div className="mb-2">
+      <h2 className="text-xl font-semibold">Employment History</h2>
+      <p className="text-xs font-light mt-1">
+        Show your relevant experience (last 10 years). Use bullet points to
+        note your achievements
+      </p>
+    </div>
+    <div>
+      {Boolean(currentPortfolio.length) &&
+        currentPortfolio[0]?.experience?.map((portfolio) => {
+          const { id: id_experience, job_title, company } = portfolio;
+          return (
+            <div key={id_experience} className="group relative">
+              <Collapse title={{ job_title, company }}>
+                <PortfolioForm initialValues={portfolio} />
+              </Collapse>
+              <button
+                onClick={() =>
+                  deleteExperience({ id_portfolio: id, id_experience })
+                }
+                className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4"
+              >
+                <Trash size={18} className="hover:text-red-600" />
+              </button>
+            </div>
+          );
+        })}
+      {currentPortfolio[0]?.experience?.length < 10 ? (
+        <Button
+          type="button"
+          onClick={() =>
+            addExperience({ id_portfolio: id, id_experience: portfolioId })
+          }
+          variant="ghost"
+          className="flex gap-2"
+        >
+          <Plus size={18} /> Add one more portfolio
+        </Button>
+      ) : (
+        <div>
+          <p className="font-semibold text-red-600">Limited Portfolio</p>
+          <p className="text-sm text-slate-500">Upgrade to Premium</p>
+        </div>
+      )}
+    </div>
+  </div></HydrationZustand>
   );
 }
 
