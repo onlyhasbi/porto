@@ -38,6 +38,7 @@ export const usePortfolioStore = create(
           portfolio: store.portfolio.map((item) => {
             if (item.id === id_portfolio) {
               const experience = [
+                ...item.experience,
                 {
                   id: id_experience,
                   job_title: '',
@@ -47,7 +48,6 @@ export const usePortfolioStore = create(
                   end_date: '',
                   description: '',
                 },
-                ...item.experience,
               ];
               return { ...item, experience };
             }
