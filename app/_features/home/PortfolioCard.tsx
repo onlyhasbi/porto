@@ -35,24 +35,20 @@ function PortfolioCard() {
           </div>
         ))}
       </div>
-      <div
-        onClick={handleAddPortfolio}
-        className="flex gap-7 items-start"
-        role="button"
-      >
+      <button onClick={handleAddPortfolio} className="flex gap-7 items-start">
         <Card className="group/add max-w-15 w-[13rem] h-[18rem] flex justify-center items-center">
           <Circle />
         </Card>
         <Description />
-      </div>
+      </button>
     </>
   );
 }
 
 const Description = () => (
-  <div className="max-w-xs">
-    <h2 className="text-lg">New Portfolio</h2>
-    <p className="text-xs max-w-xl">
+  <div className="max-w-xs text-left mt-3">
+    <h2 className="text-xl font-medium mb-1 text-slate-500">New Portfolio</h2>
+    <p className="text-xs max-w-xl text-slate-400">
       Create a tailored portfolio for each job application. Double your chances
       of getting hired!
     </p>

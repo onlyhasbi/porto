@@ -1,10 +1,11 @@
-type Experience = {
-  job_title?: string;
-  company?: string;
-  city?: string;
-  start_date?: string;
-  end_date?: string;
-  description?: string;
+export type Experience = {
+  id: string;
+  job_title: string;
+  company: string;
+  city: string;
+  start_date: string;
+  end_date: string;
+  description: string;
 };
 
 export type PersonalDetails = {
@@ -20,15 +21,15 @@ type EditPersonalDetails = {
   personal_details: PersonalDetails;
 };
 
-type AddExperiences = {
-  id_porfolio: string;
+type EditExperience = {
+  id_portfolio: string;
   id_experience: string;
-  personal_details: PersonalDetails;
+  payload: Experience;
 };
 
-type DeleteExperiences = {
+type PayloadExperience = {
   id_portfolio: string;
-  id_experiences: string;
+  id_experience: string;
 };
 
 type ChangePortfolioName = { id_portfolio: string; portfolio_name: string };
@@ -37,15 +38,16 @@ export type Portfolio = {
   id: string;
   portfolio_name?: string;
   personal_details?: PersonalDetails;
-  experience?: Experience[];
+  experience: Experience[];
 };
 
 export type PortfolioStore = {
   portfolio: Portfolio[];
   addPortfolio: (id: string) => void;
+  editPersonalDetails: (payload: EditPersonalDetails) => void;
   deletePortfolio: (id: string) => void;
   changePortfolioName: (payload: ChangePortfolioName) => void;
-  editPersonalDetails: (payload: EditPersonalDetails) => void;
-  addExperiences?: (payload: AddExperiences) => void;
-  deleteExperiences?: (payload: DeleteExperiences) => void;
+  addExperience: (payoad: PayloadExperience) => void;
+  deleteExperience: (payload: PayloadExperience) => void;
+  editExperience?: (payload: EditExperience) => void;
 };

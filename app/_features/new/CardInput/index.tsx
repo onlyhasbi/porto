@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import PortfolioForm from './PortfolioForm';
 import ProfileForm from './ProfileForm';
 import { useDebounce } from '@uidotdev/usehooks';
+import { v4 as uuidv4 } from 'uuid';
 
 function CardInput({ id }: { id: string }) {
   const { register, setValue, watch } = useForm({
@@ -18,13 +19,15 @@ function CardInput({ id }: { id: string }) {
     },
   });
 
-  const { portfolio, changePortfolioName } = usePortfolioStore();
+  const { portfolio, changePortfolioName, addExperience, deleteExperience } =
+    usePortfolioStore();
   const debounceName = useDebounce(watch('portfolio_name'), 300);
+  const currentPortfolio = portfolio.filter((item) => item.id == id);
+  const portfolioId = uuidv4();
 
   useEffect(() => {
-    const loadPortfolio = portfolio.filter((item) => item.id == id);
-    if (loadPortfolio.length) {
-      setValue('portfolio_name', loadPortfolio[0].portfolio_name!);
+    if (currentPortfolio.length) {
+      setValue('portfolio_name', currentPortfolio[0].portfolio_name!);
     }
   }, []);
 
@@ -62,25 +65,30 @@ function CardInput({ id }: { id: string }) {
         </p>
       </div>
       <div>
-        <div className="group relative">
-          <Collapse title="Frontend at Octopus">
-            <PortfolioForm />
-          </Collapse>
-          <button
-            onClick={() => {
-              console.log('delete portfolio click');
-            }}
-            className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4"
-          >
-            <Trash size={18} className="hover:text-red-600" />
-          </button>
-        </div>
-
+        {Boolean(currentPortfolio.length) &&
+          currentPortfolio[0].experience.map((portfolio) => {
+            const { id: id_experience, job_title, company } = portfolio;
+            return (
+              <div key={id_experience} className="group relative">
+                <Collapse title={{ job_title, company }}>
+                  <PortfolioForm />
+                </Collapse>
+                <button
+                  onClick={() =>
+                    deleteExperience({ id_portfolio: id, id_experience })
+                  }
+                  className="hidden group-hover:flex absolute hover:justify-center hover:items-center -right-[3rem] top-1 p-4"
+                >
+                  <Trash size={18} className="hover:text-red-600" />
+                </button>
+              </div>
+            );
+          })}
         <Button
           type="button"
-          onClick={() => {
-            console.log('add portfolio click');
-          }}
+          onClick={() =>
+            addExperience({ id_portfolio: id, id_experience: portfolioId })
+          }
           variant="ghost"
           className="flex gap-2"
         >

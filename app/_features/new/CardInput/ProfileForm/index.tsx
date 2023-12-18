@@ -47,8 +47,6 @@ function ProfileForm() {
     }
   });
 
-  console.log(errors)
-
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3 p-1">
       <Upload
